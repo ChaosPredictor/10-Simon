@@ -1,0 +1,11 @@
+.main-div{
+}
+
+
+svg{
+				height: 300px;
+}
+
+path:hover{
+				stroke: #000000;
+}
