@@ -1,17 +1,29 @@
+var mainArr = [];
+
 $(document).ready(function(){
-	document.getElementById("arc0").setAttribute("d", describeArc(150, 150, 50, 0, 359.9999));
-	document.getElementById("arc1").setAttribute("d", describeArc(150, 150, 75, 0, 90));
-	document.getElementById("arc2").setAttribute("d", describeArc(150, 150, 75, 90, 180));
-	document.getElementById("arc3").setAttribute("d", describeArc(150, 150, 75, 180, 270));
-	document.getElementById("arc4").setAttribute("d", describeArc(150, 150, 75, 270, 360));
+	document.getElementById("arc").setAttribute("d", describeArc(150, 150, 50, 0, 359.9999));
+	document.getElementById("arc0").setAttribute("d", describeArc(150, 150, 75, 0, 90));
+	document.getElementById("arc1").setAttribute("d", describeArc(150, 150, 75, 90, 180));
+	document.getElementById("arc2").setAttribute("d", describeArc(150, 150, 75, 180, 270));
+	document.getElementById("arc3").setAttribute("d", describeArc(150, 150, 75, 270, 360));
 	
 	$(".arc").click(function(){
 		console.log("arc");
+		markArc($(this));
 	});
 });
 
+function main(){
+	for (var i = 0; i < 4; i++) {
+		mainArr.push( Math.floor(Math.random() * 4) );
+	}	
+}
 
-
+function markArc(arc) {
+	$(arc).fadeTo( 250 , 0.5, function(){
+		$(arc).fadeTo( 250 , 1);
+	});
+}
 
 function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
 	var angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
