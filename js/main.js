@@ -15,18 +15,18 @@ $(document).ready(function(){
 function main(){
 	addOne();
 	printMarks();
-	checkUser();
+	checkUser('1');
 }
 
 function addOne(){
-	mainArr.push("#arc" +  Math.floor(Math.random() * 4) );
+	mainArr.push( Math.floor(Math.random() * 4) );
 }
 
 function printMarks(){
 	iterateArrayWithDelay(mainArr, 1000, markArc);
 }
 
-function checkUser(){
+function checkUser(arc, array, i){
 	var myVar;
 	myVar = setTimeout(function(){
 		console.log("false");
@@ -36,14 +36,18 @@ function checkUser(){
 	$(".arc").click(function(){
 		clearTimeout(myVar);
 		$(".arc").off();
-		console.log("true");
+		if($(this).attr('id') == "arc"+arc){
+			console.log("true " + $(this).attr('id'));
+		} else {
+			console.log("false " + $(this).attr('id'));
+		}
 		return true;
 	});
 }
 
 function markArc(arc, array, i) {
-	$(arc).fadeTo( 250 , 0.5, function(){
-		$(arc).fadeTo( 250 , 1);
+	$("#arc"+arc).fadeTo( 250 , 0.5, function(){
+		$("#arc"+arc).fadeTo( 250 , 1);
 	});
 }
 
