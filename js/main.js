@@ -7,7 +7,7 @@ $(document).ready(function(){
 	document.getElementById("arc2").setAttribute("d", describeArc(150, 150, 75, 180, 270));
 	document.getElementById("arc3").setAttribute("d", describeArc(150, 150, 75, 270, 360));
 	
-	$(".arc").click(function(){
+	$("#arc").click(function(){
 		main();
 	});
 });
@@ -27,10 +27,18 @@ function printMarks(){
 }
 
 function checkUser(){
-	for(var i = 0; i < mainArr.length; i++){
-		console.log(i);
-	}
-	//setTimeout(function(){}, 5000);
+	var myVar;
+	myVar = setTimeout(function(){
+		console.log("false");
+		$(".arc").off();
+		return false;
+	}, 3000);
+	$(".arc").click(function(){
+		clearTimeout(myVar);
+		$(".arc").off();
+		console.log("true");
+		return true;
+	});
 }
 
 function markArc(arc, array, i) {
