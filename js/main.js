@@ -1,4 +1,4 @@
-var mainArr = [1,2,3];
+var mainArr = [];
 
 $(document).ready(function(){
 	document.getElementById("arc").setAttribute("d", describeArc(150, 150, 50, 0, 359.9999));
@@ -8,41 +8,29 @@ $(document).ready(function(){
 	document.getElementById("arc3").setAttribute("d", describeArc(150, 150, 75, 270, 360));
 	
 	$(".arc").click(function(){
-		console.log("arc");
 		main();
-		//printMarks();
-		//markArc($(this));
-		//iterateArrayWithDelay(["#arc1","#arc2","#arc3"], 1000, markArc);
 	});
 });
 
 function main(){
-	var mainArr = [];
-	console.log("run");
-	for (var i = 0; i < 4; i++) {
-		mainArr.push("#arc" +  Math.floor(Math.random() * 4) );
-	}	
-	iterateArrayWithDelay(mainArr, 1000, markArc);
+	addOne();
+	printMarks();
+	checkUser();
+}
+
+function addOne(){
+	mainArr.push("#arc" +  Math.floor(Math.random() * 4) );
 }
 
 function printMarks(){
-	var tempArr = [1,2,3,0];
-	for (var j = 0; j < 3; j++) {
-		//markArc("#arc1");			
-			markArc("#arc2");			
-		setTimeout(function(){
-			markArc("#arc2");			
-		}, 1000);
-		//setTimeout(function(){
-		console.log("subrun#" + j);
-		//	markArc("#arc"+tempArr[j]);
-		//}, 1000);
-	}
-
+	iterateArrayWithDelay(mainArr, 1000, markArc);
 }
 
 function checkUser(){
-	setTimeout(function(){}, 5000);
+	for(var i = 0; i < mainArr.length; i++){
+		console.log(i);
+	}
+	//setTimeout(function(){}, 5000);
 }
 
 function markArc(arc, array, i) {
@@ -76,7 +64,7 @@ function describeArc(x, y, radius, startAngle, endAngle){
 
 function iterateArrayWithDelay(arr, delay, fn) {
     var index = 0;
-	console.log(index);
+	//console.log(index);
     function next() {
         // protect against empty array
         if (!arr.length) {
