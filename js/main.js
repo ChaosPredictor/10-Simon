@@ -15,7 +15,7 @@ $(document).ready(function(){
 function main(){
 	addOne();
 	printMarks();
-	checkUser('1');
+	//checkUserArr();
 }
 
 function addOne(){
@@ -23,10 +23,15 @@ function addOne(){
 }
 
 function printMarks(){
-	iterateArrayWithDelay(mainArr, 1000, markArc);
+	iterateArrayWithDelay2(mainArr, 1000, markArc, checkUser);
+}
+
+function checkUserArr(){
+	iterateArrayWithDelay(mainArr, 1000, checkUser);
 }
 
 function checkUser(arc, array, i){
+	console.log("start check user "+arc);
 	var myVar;
 	myVar = setTimeout(function(){
 		console.log("false");
@@ -41,7 +46,7 @@ function checkUser(arc, array, i){
 		} else {
 			console.log("false " + $(this).attr('id'));
 		}
-		return true;
+		//return true;
 	});
 }
 
@@ -96,6 +101,47 @@ function iterateArrayWithDelay(arr, delay, fn) {
         }
 
         ++index;
+
+        // schedule next iteration
+        setTimeout(next, delay);
+    }
+    // start the iteration
+    next();
+}
+
+function iterateArrayWithDelay2(arr, delay, fn1, fn2) {
+    var index = arr.length;
+    var lng = arr.length;
+	//console.log(index);
+    function next() {
+        // protect against empty array
+        if (!arr.length) {
+            return;
+        }
+
+        // see if we need to wrap the index
+        if (index <= -arr.length) {
+			return;
+            //index = 0;
+        }
+
+        if (index > 0) {
+			// call the callback
+			console.log("fn1 run");
+			if (fn1(arr[lng-index], arr, index) === false) {
+				// stop iterating
+				return;
+			}
+		} else {
+			// call the callback
+			console.log("fn2 run");
+			if (fn2(arr[0-index], arr, index) === false) {
+				// stop iterating
+				return;
+			}
+		}
+
+        --index;
 
         // schedule next iteration
         setTimeout(next, delay);
