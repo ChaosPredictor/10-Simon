@@ -118,7 +118,7 @@ function iterateArrayWithDelay(arr, delay, fn) {
 function iterateArrayWithDelay2(arr, delay, fn1, fn2) {
     var index = arr.length;
     var lng = arr.length;
-	var fall = false;
+	var fail = null;
 	//console.log(index);
     function next() {
         // protect against empty array
@@ -127,21 +127,29 @@ function iterateArrayWithDelay2(arr, delay, fn1, fn2) {
         }
 
         // see if we need to wrap the index
-        if (index <= -arr.length) {
+        if (index < -arr.length) {
 			return true;
             //index = 0;  //to renew running
         }
+		
+		if (fail == true) {
+			console.log("fail = true");
+			return true;
+		}
 
         if (index > 0) {
 			if (fn1(arr[lng-index], arr, index) === false) {
 				return;
 			}
+			--index;
+			setTimeout(next, delay);
 		} else {
 			var arc = arr[0-index];
 			var myVar;
 			myVar = setTimeout(function(){
 				console.log("false timer");
 				$(".arc").off();
+				fail = true;
 				return false;
 			}, 3000);
 			$(".arc").click(function(){
@@ -153,13 +161,18 @@ function iterateArrayWithDelay2(arr, delay, fn1, fn2) {
 				if($(this).attr('id') == "arc"+arc){
 					//return true;
 					console.log("right arc " + $(this).attr('id'));
-					if (index <= -arr.length) {
+					if (index <= -arr.length+1) {
 						console.log("index: " + index + "/-length: " + -arr.length);
 						console.log("start new run!!!");
 						setTimeout(main,5000);
 						return true;
-				    }
+				    } else {
+						console.log("else option");
+						--index;
+						setTimeout(next, delay);				
+					}
 				} else {
+					fail = true;
 					console.log("wrong arc wait/real " + arc + "/" + $(this).attr('id'));
 					return false;
 				}
@@ -168,8 +181,6 @@ function iterateArrayWithDelay2(arr, delay, fn1, fn2) {
 					
 		}
 
-		--index;
-		setTimeout(next, delay);
     }
     next();
 }
