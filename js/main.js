@@ -1,4 +1,5 @@
 var mainArr = [];
+var on = false;
 
 $(document).ready(function(){
 	document.getElementById("arc").setAttribute("d", describeArc(250, 250, 65, 0, 359.9999));
@@ -7,11 +8,29 @@ $(document).ready(function(){
 	document.getElementById("arc2").setAttribute("d", describeArc(250, 250, 100, 180, 270));
 	document.getElementById("arc3").setAttribute("d", describeArc(250, 250, 100, 270, 360));
 	
+	$(".switch").click(function(){
+		console.log("switch");
+		toggleOnOff();
+		//main();
+	});
+	
 	$("#arc").click(function(){
 		console.log("clicked");
 		main();
 	});
 });
+
+function toggleOnOff() {
+	if (!on) {
+		$("#switch").attr("x", 252);
+		$("#switch").css({ fill: "rgb(50,250,50)" });
+		on = true;
+	} else {
+		$("#switch").attr("x", 232);
+		$("#switch").css({ fill: "rgb(250,50,50)" });
+		on = false;
+	}
+}
 
 function main(){
 	addOne();
