@@ -1,11 +1,11 @@
 var mainArr = [];
 
 $(document).ready(function(){
-	document.getElementById("arc").setAttribute("d", describeArc(150, 150, 50, 0, 359.9999));
-	document.getElementById("arc0").setAttribute("d", describeArc(150, 150, 75, 0, 90));
-	document.getElementById("arc1").setAttribute("d", describeArc(150, 150, 75, 90, 180));
-	document.getElementById("arc2").setAttribute("d", describeArc(150, 150, 75, 180, 270));
-	document.getElementById("arc3").setAttribute("d", describeArc(150, 150, 75, 270, 360));
+	document.getElementById("arc").setAttribute("d", describeArc(250, 250, 65, 0, 359.9999));
+	document.getElementById("arc0").setAttribute("d", describeArc(250, 250, 100, 0, 90));
+	document.getElementById("arc1").setAttribute("d", describeArc(250, 250, 100, 90, 180));
+	document.getElementById("arc2").setAttribute("d", describeArc(250, 250, 100, 180, 270));
+	document.getElementById("arc3").setAttribute("d", describeArc(250, 250, 100, 270, 360));
 	
 	$("#arc").click(function(){
 		console.log("clicked");
