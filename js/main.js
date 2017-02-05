@@ -35,7 +35,7 @@ function toggleOnOff() {
 
 function main(){
 	addOne();
-	updateDisplay(counter);
+	updateDisplay(pad(counter,2));
 	iterateArrayWithDelay2(mainArr, 1000, markArc, checkUser)
 	//printMarks();
 	//checkUserArr();
@@ -51,6 +51,12 @@ function addOne(){
 }
 
 function printMarks(){
+}
+
+function pad(n, width, z) {
+  z = z || '0';
+  n = n + '';
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
 function checkUserArr(){
