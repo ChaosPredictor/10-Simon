@@ -1,5 +1,6 @@
 var mainArr = [];
 var on = false;
+var counter = 0;
 
 $(document).ready(function(){
 	document.getElementById("arc").setAttribute("d", describeArc(250, 250, 65, 0, 359.9999));
@@ -34,12 +35,18 @@ function toggleOnOff() {
 
 function main(){
 	addOne();
+	updateDisplay(counter);
 	iterateArrayWithDelay2(mainArr, 1000, markArc, checkUser)
 	//printMarks();
 	//checkUserArr();
 }
 
+function updateDisplay(txt){
+	$("#display-digit").text(txt);
+}
+
 function addOne(){
+	counter++;
 	mainArr.push( Math.floor(Math.random() * 4) );
 }
 
