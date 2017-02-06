@@ -1,6 +1,7 @@
 var mainArr = [];
 var on = false;
 var counter = 0;
+var delayInput = 500;
 
 $(document).ready(function(){
 	document.getElementById("arc").setAttribute("d", describeArc(250, 250, 65, 0, 359.9999));
@@ -15,9 +16,11 @@ $(document).ready(function(){
 		//main();
 	});
 	
-	$("#arc").click(function(){
-		console.log("clicked");
-		main();
+	$("#on-button").click(function(){
+		if (on) {
+			console.log("clicked");
+			main();
+		}
 	});
 });
 
@@ -35,8 +38,7 @@ function toggleOnOff() {
 
 function main(){
 	addOne();
-	updateDisplay(pad(counter,2));
-	iterateArrayWithDelay2(mainArr, 1000, markArc, checkUser)
+	setTimeout(iterateArrayWithDelay2(mainArr, 1000, markArc, checkUser),1000);
 	//printMarks();
 	//checkUserArr();
 }
@@ -47,6 +49,7 @@ function updateDisplay(txt){
 
 function addOne(){
 	counter++;
+	updateDisplay(pad(counter,2));
 	mainArr.push( Math.floor(Math.random() * 4) );
 }
 
@@ -201,7 +204,7 @@ function iterateArrayWithDelay2(arr, delay, fn1, fn2) {
 				    } else {
 						console.log("else option");
 						--index;
-						setTimeout(next, delay);				
+						setTimeout(next, delayInput);				
 					}
 				} else {
 					fail = true;
