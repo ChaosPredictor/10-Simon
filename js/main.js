@@ -2,6 +2,8 @@ var mainArr = [];
 var on = false;
 var counter = 0;
 var delayInput = 500;
+var delayEndStep = 3000;
+
 
 $(document).ready(function(){
 	document.getElementById("arc").setAttribute("d", describeArc(250, 250, 65, 0, 359.9999));
@@ -13,7 +15,6 @@ $(document).ready(function(){
 	$(".switch").click(function(){
 		console.log("switch");
 		toggleOnOff();
-		//main();
 	});
 	
 	$("#on-button").click(function(){
@@ -23,6 +24,7 @@ $(document).ready(function(){
 		}
 	});
 });
+
 
 function toggleOnOff() {
 	if (!on) {
@@ -36,14 +38,17 @@ function toggleOnOff() {
 	}
 }
 
+
 function main(){
 	addOne();
 	setTimeout(body(mainArr, 1000, markArc),1000);
 }
 
+
 function updateDisplay(txt){
 	$("#display-digit").text(txt);
 }
+
 
 function addOne(){
 	counter++;
@@ -58,36 +63,13 @@ function pad(n, width, z) {
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
-function checkUser(arc, array, i){
-	//console.log("start check user "+arc);
-	var myVar;
-	myVar = setTimeout(function(){
-		console.log("false timer");
-		$(".arc").off();
-		return false;
-	}, 3000);
-	$(".arc").click(function(){
-		clearTimeout(myVar);
-		$(".arc").off();
-		$(this).fadeTo( 250 , 0.5, function(){
-			$(this).fadeTo( 250 , 1);
-		});
-		if($(this).attr('id') == "arc"+arc){
-			return true;
-			//console.log("true " + $(this).attr('id'));
-		} else {
-			console.log("false " + $(this).attr('id'));
-			return false;
-		}
-		//return true;
-	});
-}
 
 function markArc(arc, array, i) {
 	$("#arc"+arc).fadeTo( 250 , 0.5, function(){
 		$("#arc"+arc).fadeTo( 250 , 1);
 	});
 }
+
 
 function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
 	var angleInRadians = (angleInDegrees-90) * Math.PI / 180.0;
@@ -97,6 +79,7 @@ function polarToCartesian(centerX, centerY, radius, angleInDegrees) {
 		y: centerY + (radius * Math.sin(angleInRadians))
 	};
 }
+
 
 function describeArc(x, y, radius, startAngle, endAngle){
 	var start = polarToCartesian(x, y, radius, endAngle);
@@ -112,35 +95,6 @@ function describeArc(x, y, radius, startAngle, endAngle){
 	return d;       
 }
 
-function iterateArrayWithDelay(arr, delay, fn) {
-    var index = 0;
-	//console.log(index);
-    function next() {
-        // protect against empty array
-        if (!arr.length) {
-            return;
-        }
-
-        // see if we need to wrap the index
-        if (index >= arr.length) {
-			return;
-            //index = 0;
-        }
-
-        // call the callback
-        if (fn(arr[index], arr, index) === false) {
-            // stop iterating
-            return;
-        }
-
-        ++index;
-
-        // schedule next iteration
-        setTimeout(next, delay);
-    }
-    // start the iteration
-    next();
-}
 
 function body(arr, delay, fn1) {
     var index = arr.length;
@@ -191,7 +145,7 @@ function body(arr, delay, fn1) {
 					if (index <= -arr.length+1) {
 						console.log("index: " + index + "/-length: " + -arr.length);
 						console.log("start new run!!!");
-						setTimeout(main,5000);
+						setTimeout(main, delayEndStep);
 						return true;
 				    } else {
 						console.log("else option");
