@@ -39,8 +39,6 @@ function toggleOnOff() {
 function main(){
 	addOne();
 	setTimeout(iterateArrayWithDelay2(mainArr, 1000, markArc, checkUser),1000);
-	//printMarks();
-	//checkUserArr();
 }
 
 function updateDisplay(txt){
@@ -53,8 +51,6 @@ function addOne(){
 	mainArr.push( Math.floor(Math.random() * 4) );
 }
 
-function printMarks(){
-}
 
 function pad(n, width, z) {
   z = z || '0';
@@ -62,9 +58,9 @@ function pad(n, width, z) {
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 }
 
-function checkUserArr(){
-	iterateArrayWithDelay(mainArr, 1000, checkUser);
-}
+//function checkUserArr(){
+//	iterateArrayWithDelay(mainArr, 1000, checkUser);
+//}
 
 function checkUser(arc, array, i){
 	//console.log("start check user "+arc);
