@@ -3,7 +3,8 @@ var on = false;
 var counter = 0;
 var delayInput = 500;
 var delayEndStep = 3000;
-
+var delayShow = 250;
+var delayBtwShow = 1000;
 
 $(document).ready(function(){
 	document.getElementById("arc").setAttribute("d", describeArc(250, 250, 65, 0, 359.9999));
@@ -41,7 +42,7 @@ function toggleOnOff() {
 
 function main(){
 	addOne();
-	setTimeout(body(mainArr, 1000, markArc),1000);
+	setTimeout(body, 1000);
 }
 
 
@@ -57,17 +58,86 @@ function addOne(){
 }
 
 
+function markArc(arc) {
+	$("#arc"+arc).fadeTo( delayShow, 0.5, function(){
+		$("#arc"+arc).fadeTo( delayShow, 1);
+	});
+}
+
+
+function body() {
+    var index = mainArr.length;
+    var lng = index;
+	var fail = null;
+    function next() {
+        if (!mainArr.length) {
+            return;
+        }
+
+        // see if we need to wrap the index
+        if (index < -lng) {
+			return true;
+            //index = 0;  //to renew running
+        }
+		
+		if (fail == true) {
+			console.log("fail = true");
+			return true;
+		}
+
+        if (index > 0) {
+			if (markArc(mainArr[lng-index]) === false) {
+				return;
+			}
+			--index;
+			setTimeout(next, delayBtwShow);
+		} else {
+			var arc = mainArr[0-index];
+			var myVar;
+			myVar = setTimeout(function(){
+				console.log("false timer");
+				$(".arc").off();
+				fail = true;
+				return false;
+			}, 3000);
+			$(".arc").click(function(){
+				clearTimeout(myVar);
+				$(".arc").off();
+				$(this).fadeTo( 250 , 0.5, function(){
+					$(this).fadeTo( 250 , 1);
+				});
+				if($(this).attr('id') == "arc"+arc){
+					//return true;
+					console.log("right arc " + $(this).attr('id'));
+					if (index <= -lng+1) {
+						console.log("index: " + index + "/-length: " + -lng);
+						console.log("start new run!!!");
+						setTimeout(main, delayEndStep);
+						return true;
+				    } else {
+						console.log("else option");
+						--index;
+						setTimeout(next, delayInput);				
+					}
+				} else {
+					fail = true;
+					console.log("wrong arc wait/real " + arc + "/" + $(this).attr('id'));
+					return false;
+				}
+				//return true;
+			});
+					
+		}
+
+    }
+    next();
+}
+
+
 function pad(n, width, z) {
   z = z || '0';
   n = n + '';
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
-}
-
-
-function markArc(arc, array, i) {
-	$("#arc"+arc).fadeTo( 250 , 0.5, function(){
-		$("#arc"+arc).fadeTo( 250 , 1);
-	});
 }
 
 
@@ -95,73 +165,3 @@ function describeArc(x, y, radius, startAngle, endAngle){
 	return d;       
 }
 
-
-function body(arr, delay, fn1) {
-    var index = arr.length;
-    var lng = arr.length;
-	var fail = null;
-	//console.log(index);
-    function next() {
-        // protect against empty array
-        if (!arr.length) {
-            return;
-        }
-
-        // see if we need to wrap the index
-        if (index < -arr.length) {
-			return true;
-            //index = 0;  //to renew running
-        }
-		
-		if (fail == true) {
-			console.log("fail = true");
-			return true;
-		}
-
-        if (index > 0) {
-			if (fn1(arr[lng-index], arr, index) === false) {
-				return;
-			}
-			--index;
-			setTimeout(next, delay);
-		} else {
-			var arc = arr[0-index];
-			var myVar;
-			myVar = setTimeout(function(){
-				console.log("false timer");
-				$(".arc").off();
-				fail = true;
-				return false;
-			}, 3000);
-			$(".arc").click(function(){
-				clearTimeout(myVar);
-				$(".arc").off();
-				$(this).fadeTo( 250 , 0.5, function(){
-					$(this).fadeTo( 250 , 1);
-				});
-				if($(this).attr('id') == "arc"+arc){
-					//return true;
-					console.log("right arc " + $(this).attr('id'));
-					if (index <= -arr.length+1) {
-						console.log("index: " + index + "/-length: " + -arr.length);
-						console.log("start new run!!!");
-						setTimeout(main, delayEndStep);
-						return true;
-				    } else {
-						console.log("else option");
-						--index;
-						setTimeout(next, delayInput);				
-					}
-				} else {
-					fail = true;
-					console.log("wrong arc wait/real " + arc + "/" + $(this).attr('id'));
-					return false;
-				}
-				//return true;
-			});
-					
-		}
-
-    }
-    next();
-}
