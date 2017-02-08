@@ -5,11 +5,11 @@ var delayInput = 500;
 var delayEndStep = 3000;
 var delayShow = 250;
 var delayBtwShow = 1000;
-var centerX = 250;
-var centerY = 250;
+var centerX = 240;
+var centerY = 240;
 var sizeX = 500;
 var sizeY = 500;
-var radius = 80;
+var radius = 150;
 
 $(document).ready(function(){
 	init();
@@ -36,17 +36,24 @@ function init(){
 	document.getElementById("arc2").setAttribute("d", describeArc(centerX, centerY, radius, 180, 270));
 	document.getElementById("arc3").setAttribute("d", describeArc(centerX, centerY, radius, 270, 360));
 	
-	$("#arc").css({"stroke-width":radius*1.3});
+	//$("#arc").css({"stroke-width":radius*1.3});
+	$("#main-circle").attr({"cx":centerX,"cy":centerY,"r":radius*1.3});
+	$("#switch-box").attr({"x":centerX-radius/5,"y":centerY+10+radius/4, "width":radius*2/5, "height":radius/5});
+	$("#switch").attr({"x":centerX-radius/5+2,"y":centerY+12+radius/4, "width":radius/5-4, "height":radius/5-4});
+	$("#display-box").attr({"x":centerX-57,"y":centerY-10});
+	$("#display-digit").attr({"x":centerX-55,"y":centerY+14});
+	$("#on-button").attr({"cx":centerX,"cy":centerY+10});
+	$("#stricy-button").attr({"cx":centerX+30,"cy":centerY+10});
 }
 
 
 function toggleOnOff() {
 	if (!on) {
-		$("#switch").attr("x", 252);
+		$("#switch").attr("x", centerX+2);
 		$("#switch").css({ fill: "rgb(50,250,50)" });
 		on = true;
 	} else {
-		$("#switch").attr("x", 232);
+		$("#switch").attr("x", centerX-radius/5+2);
 		$("#switch").css({ fill: "rgb(250,50,50)" });
 		on = false;
 	}
