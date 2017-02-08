@@ -5,8 +5,8 @@ var delayInput = 500;
 var delayEndStep = 3000;
 var delayShow = 250;
 var delayBtwShow = 1000;
-var centerX = 240;
-var centerY = 240;
+var centerX = 250;
+var centerY = 250;
 var sizeX = 500;
 var sizeY = 500;
 var radius = 150;
@@ -38,12 +38,12 @@ function init(){
 	
 	//$("#arc").css({"stroke-width":radius*1.3});
 	$("#main-circle").attr({"cx":centerX,"cy":centerY,"r":radius*1.3});
-	$("#switch-box").attr({"x":centerX-radius/5,"y":centerY+10+radius/4, "width":radius*2/5, "height":radius/5});
-	$("#switch").attr({"x":centerX-radius/5+2,"y":centerY+12+radius/4, "width":radius/5-4, "height":radius/5-4});
-	$("#display-box").attr({"x":centerX-57,"y":centerY-10});
-	$("#display-digit").attr({"x":centerX-55,"y":centerY+14});
-	$("#on-button").attr({"cx":centerX,"cy":centerY+10});
-	$("#stricy-button").attr({"cx":centerX+30,"cy":centerY+10});
+	$("#switch-box").attr({"x":centerX-radius/5,"y":centerY-15+radius/2, "width":radius*2/5, "height":radius/5});
+	$("#switch").attr({"x":centerX-radius/5+2,"y":centerY-13+radius/2, "width":radius/5-4, "height":radius/5-4});
+	$("#display-box").attr({"x":centerX-radius/2-7,"y":centerY-radius/10, "width":radius/4+12, "height":radius/5+10 });
+	$("#display-digit").attr({"x":centerX-radius/2-5,"y":centerY+radius/10+4, "font-size":radius/5+5});
+	$("#on-button").attr({"cx":centerX+radius/10,"cy":centerY+10, "r":radius/10});
+	$("#stricy-button").attr({"cx":centerX+radius/2,"cy":centerY+10, "r":radius/10});
 }
 
 
