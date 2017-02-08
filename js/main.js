@@ -5,14 +5,15 @@ var delayInput = 500;
 var delayEndStep = 3000;
 var delayShow = 250;
 var delayBtwShow = 1000;
+var centerX = 250;
+var centerY = 250;
+var sizeX = 500;
+var sizeY = 500;
+var radius = 80;
 
 $(document).ready(function(){
-	document.getElementById("arc").setAttribute("d", describeArc(250, 250, 65, 0, 359.9999));
-	document.getElementById("arc0").setAttribute("d", describeArc(250, 250, 100, 0, 90));
-	document.getElementById("arc1").setAttribute("d", describeArc(250, 250, 100, 90, 180));
-	document.getElementById("arc2").setAttribute("d", describeArc(250, 250, 100, 180, 270));
-	document.getElementById("arc3").setAttribute("d", describeArc(250, 250, 100, 270, 360));
-	
+	init();
+
 	$(".switch").click(function(){
 		console.log("switch");
 		toggleOnOff();
@@ -25,6 +26,18 @@ $(document).ready(function(){
 		}
 	});
 });
+
+function init(){
+	$("svg").css({"height":sizeY+"px","width":sizeX+"px"});
+
+	//document.getElementById("arc").setAttribute("d", describeArc(centerX, centerY, radius*0.65, 0, 359.9999));
+	document.getElementById("arc0").setAttribute("d", describeArc(centerX, centerY, radius, 0, 90));
+	document.getElementById("arc1").setAttribute("d", describeArc(centerX, centerY, radius, 90, 180));
+	document.getElementById("arc2").setAttribute("d", describeArc(centerX, centerY, radius, 180, 270));
+	document.getElementById("arc3").setAttribute("d", describeArc(centerX, centerY, radius, 270, 360));
+	
+	$("#arc").css({"stroke-width":radius*1.3});
+}
 
 
 function toggleOnOff() {
