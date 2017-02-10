@@ -1,11 +1,13 @@
 var mainArr = [];
 var on = false;
 var run = false;
+var stricy = false;
 var counter = 0;
 var delayInput = 500;
-var delayEndStep = 3000;
+var delayRight = 2000;
 var delayShow = 250;
 var delayBtwShow = 1000;
+var delayWrong = 2000;
 var centerX = 250;
 var centerY = 250;
 var sizeX = 500;
@@ -24,6 +26,12 @@ $(document).ready(function(){
 		if (on) {
 			//console.log("clicked");
 			main();
+		}
+	});
+	
+	$("#stricy-button").click(function(){
+		if (on) {
+			toggleStricy();
 		}
 	});
 });
@@ -45,7 +53,18 @@ function init(){
 	$("#display-digit").attr({"x":centerX-radius/2-5,"y":centerY+radius/10+4, "font-size":radius/5+5});
 	$("#on-button").attr({"cx":centerX+radius/10,"cy":centerY+10, "r":radius/10});
 	$("#stricy-button").attr({"cx":centerX+radius/2,"cy":centerY+10, "r":radius/10});
-	$("#stricy-led").attr({"cx":centerX+radius/2,"cy":centerY-radius/5+10, "r":radius/20});
+	$("#stricy-led").attr({"cx":centerX+radius/2,"cy":centerY-radius/5+10, "r":radius/25});
+}
+
+
+function toggleStricy() {
+	if (!stricy) {
+		$("#stricy-led").css({ fill: "red" });
+		stricy = true;
+	} else {
+		$("#stricy-led").css({ fill: "grey" });
+		stricy = false;
+	}
 }
 
 
@@ -86,6 +105,25 @@ function markArc(arc) {
 	});
 }
 
+function displayWrong(){
+	$("#display-digit").text(" ! !");
+	setTimeout(function(){
+		$("#display-digit").text("");
+	},400);
+	setTimeout(function(){
+		$("#display-digit").text(" ! !");
+	},800);
+	setTimeout(function(){
+		$("#display-digit").text("");
+	},1200);
+	setTimeout(function(){
+		$("#display-digit").text(" ! !");
+	},1600);
+	setTimeout(function(){
+		updateDisplay(pad(counter,2));
+	},2000);
+}
+
 
 function body() {
     var index = mainArr.length;
@@ -120,6 +158,7 @@ function body() {
 				console.log("false timer");
 				$(".arc").off();
 				fail = true;
+				setTimeout(body, delayWrong);				
 				return false;
 			}, 3000);
 			$(".arc").click(function(){
@@ -132,9 +171,9 @@ function body() {
 					//return true;
 					console.log("right arc " + $(this).attr('id'));
 					if (index <= -lng+1) {
-						console.log("index: " + index + "/-length: " + -lng);
-						console.log("start new run!!!");
-						setTimeout(main, delayEndStep);
+						//console.log("index: " + index + "/-length: " + -lng);
+						//console.log("start new run!!!");
+						setTimeout(main, delayRight);
 						return true;
 				    } else {
 						console.log("else option");
@@ -143,7 +182,9 @@ function body() {
 					}
 				} else {
 					fail = true;
-					console.log("wrong arc wait/real " + arc + "/" + $(this).attr('id'));
+					//console.log("wrong arc wait/real " + arc + "/" + $(this).attr('id'));
+					displayWrong();
+					setTimeout(body, delayWrong);				
 					return false;
 				}
 				//return true;
