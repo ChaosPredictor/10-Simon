@@ -158,6 +158,7 @@ function body() {
 				console.log("false timer");
 				$(".arc").off();
 				fail = true;
+				displayWrong();
 				setTimeout(body, delayWrong);				
 				return false;
 			}, 3000);
