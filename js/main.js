@@ -1,5 +1,6 @@
 var mainArr = [];
 var on = false;
+var run = false;
 var counter = 0;
 var delayInput = 500;
 var delayEndStep = 3000;
@@ -21,7 +22,7 @@ $(document).ready(function(){
 	
 	$("#on-button").click(function(){
 		if (on) {
-			console.log("clicked");
+			//console.log("clicked");
 			main();
 		}
 	});
@@ -44,6 +45,7 @@ function init(){
 	$("#display-digit").attr({"x":centerX-radius/2-5,"y":centerY+radius/10+4, "font-size":radius/5+5});
 	$("#on-button").attr({"cx":centerX+radius/10,"cy":centerY+10, "r":radius/10});
 	$("#stricy-button").attr({"cx":centerX+radius/2,"cy":centerY+10, "r":radius/10});
+	$("#stricy-led").attr({"cx":centerX+radius/2,"cy":centerY-radius/5+10, "r":radius/20});
 }
 
 
