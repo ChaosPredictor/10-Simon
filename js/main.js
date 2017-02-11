@@ -27,8 +27,10 @@ $(document).ready(function(){
 	
 	$("#on-button").click(function(){
 		if (on) {
-			//console.log("clicked");
-			main();
+			if (!run) {
+				//console.log("clicked");
+				main();
+			}
 		}
 	});
 	
@@ -76,15 +78,22 @@ function toggleOnOff() {
 		$("#switch").attr("x", centerX+2);
 		$("#switch").css({ fill: "rgb(50,250,50)" });
 		on = true;
+		$("#display-digit").text("00");
 	} else {
 		$("#switch").attr("x", centerX-radius/5+2);
 		$("#switch").css({ fill: "rgb(250,50,50)" });
+		mainArr = [];
 		on = false;
+		run = false;
+		stricy = false;
+		counter = 0;
+		$("#display-digit").text("");
 	}
 }
 
 
 function main(){
+	run = true;
 	addOne();
 	setTimeout(body, 1000);
 }
@@ -168,7 +177,11 @@ function body() {
     var lng = index;
 	var fail = null;
     function next() {
-        if (!mainArr.length) {
+        if (!run) {
+			return false;
+		}	
+		
+		if (!mainArr.length) {
             return;
         }
 
