@@ -8,6 +8,8 @@ var delayRight = 2000;
 var delayShow = 250;
 var delayBtwShow = 1000;
 var delayWrong = 2000;
+var delayWin =2400;
+var waitTime = 4000;
 var centerX = 250;
 var centerY = 250;
 var sizeX = 500;
@@ -124,6 +126,38 @@ function displayWrong(){
 	},2000);
 }
 
+function displayWin(){
+	$("#display-digit").text("Wi");
+	setTimeout(function(){
+		$("#display-digit").text("in");
+	},600);
+	setTimeout(function(){
+		$("#display-digit").text("Wi");
+	},1200);
+	setTimeout(function(){
+		$("#display-digit").text("in");
+	},1800);
+	setTimeout(function(){
+		updateDisplay(pad(counter,2));
+	},2400);
+}
+
+
+function failCase(){
+	if (!stricy){
+		body();
+	} else {
+		counter = 0;
+		mainArr = [];
+		main();
+	}
+}
+
+function winCase(){
+	counter = 0;
+	mainArr = [];
+	main();
+}
 
 function body() {
     var index = mainArr.length;
@@ -144,6 +178,7 @@ function body() {
 			console.log("fail = true");
 			return true;
 		}
+		
 
         if (index > 0) {
 			if (markArc(mainArr[lng-index]) === false) {
@@ -159,9 +194,9 @@ function body() {
 				$(".arc").off();
 				fail = true;
 				displayWrong();
-				setTimeout(body, delayWrong);				
+				setTimeout(failCase, delayWrong);				
 				return false;
-			}, 3000);
+			}, waitTime);
 			$(".arc").click(function(){
 				clearTimeout(myVar);
 				$(".arc").off();
@@ -172,6 +207,11 @@ function body() {
 					//return true;
 					console.log("right arc " + $(this).attr('id'));
 					if (index <= -lng+1) {
+						if (counter >= 3) {
+							displayWin();
+							setTimeout(winCase, delayWin);;
+							return true;
+						}
 						//console.log("index: " + index + "/-length: " + -lng);
 						//console.log("start new run!!!");
 						setTimeout(main, delayRight);
@@ -185,7 +225,7 @@ function body() {
 					fail = true;
 					//console.log("wrong arc wait/real " + arc + "/" + $(this).attr('id'));
 					displayWrong();
-					setTimeout(body, delayWrong);				
+					setTimeout(failCase, delayWrong);				
 					return false;
 				}
 				//return true;
