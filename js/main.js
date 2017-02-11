@@ -15,6 +15,7 @@ var centerY = 250;
 var sizeX = 500;
 var sizeY = 500;
 var radius = 150;
+var audioElement = document.createElement('audio');
 
 $(document).ready(function(){
 	init();
@@ -102,6 +103,9 @@ function addOne(){
 
 
 function markArc(arc) {
+	var num = arc + 1;
+	audioElement.setAttribute('src', "https://s3.amazonaws.com/freecodecamp/simonSound" + num + ".mp3");
+	audioElement.play();
 	$("#arc"+arc).fadeTo( delayShow, 0.5, function(){
 		$("#arc"+arc).fadeTo( delayShow, 1);
 	});
@@ -200,6 +204,10 @@ function body() {
 			$(".arc").click(function(){
 				clearTimeout(myVar);
 				$(".arc").off();
+				//console.log($(this).attr('id')[3]);
+				var num = Number($(this).attr('id')[3]) + 1;
+				audioElement.setAttribute('src', "https://s3.amazonaws.com/freecodecamp/simonSound" + num + ".mp3");
+				audioElement.play();
 				$(this).fadeTo( 250 , 0.5, function(){
 					$(this).fadeTo( 250 , 1);
 				});
@@ -207,7 +215,7 @@ function body() {
 					//return true;
 					console.log("right arc " + $(this).attr('id'));
 					if (index <= -lng+1) {
-						if (counter >= 3) {
+						if (counter >= 20) {
 							displayWin();
 							setTimeout(winCase, delayWin);;
 							return true;
