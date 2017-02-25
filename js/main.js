@@ -59,8 +59,8 @@ function init(){
 	$("#display-box").attr({"x":centerX-radius/2-7,"y":centerY-radius/10, "width":radius/4+12, "height":radius/5+10 });
 	$("#display-digit").attr({"x":centerX-radius/2-5,"y":centerY+radius/10+4, "font-size":radius/5+5});
 	$("#on-button").attr({"cx":centerX+radius/10,"cy":centerY+10, "r":radius/10});
-	$("#stricy-button").attr({"cx":centerX+radius/2,"cy":centerY+10, "r":radius/10});
-	$("#stricy-led").attr({"cx":centerX+radius/2,"cy":centerY-radius/5+10, "r":radius/25});
+	$("#stricy-button").attr({"cx":centerX+radius/2.3+12,"cy":centerY+10, "r":radius/10});
+	$("#stricy-led").attr({"cx":centerX+radius/2.3+12,"cy":centerY-radius/5+10, "r":radius/25});
 }
 
 
