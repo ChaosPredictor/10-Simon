@@ -14,7 +14,7 @@ var centerX = 250;
 var centerY = 250;
 var sizeX = 500;
 var sizeY = 500;
-var radius = 150;
+var radius = 180;
 var audioElement = document.createElement('audio');
 
 $(document).ready(function(){
@@ -53,6 +53,8 @@ function init(){
 	//$("#arc").css({"stroke-width":radius*1.3});
 	$("#main-circle").attr({"cx":centerX,"cy":centerY,"r":radius*1.3});
 	$("#switch-box").attr({"x":centerX-radius/5,"y":centerY-15+radius/2, "width":radius*2/5, "height":radius/5});
+	$("#text-on").attr({"x":centerX+radius/5+5,"y":centerY+radius/1.6-15, "width":radius*2/5, "height":radius/5, "font-size":radius/10});
+	$("#text-off").attr({"x":centerX-radius/2.6-8,"y":centerY+radius/1.6-15, "width":radius*2/5, "height":radius/5, "font-size":radius/10});
 	$("#switch").attr({"x":centerX-radius/5+2,"y":centerY-13+radius/2, "width":radius/5-4, "height":radius/5-4});
 	$("#display-box").attr({"x":centerX-radius/2-7,"y":centerY-radius/10, "width":radius/4+12, "height":radius/5+10 });
 	$("#display-digit").attr({"x":centerX-radius/2-5,"y":centerY+radius/10+4, "font-size":radius/5+5});
