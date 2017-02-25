@@ -8,7 +8,8 @@ var delayRight = 2000;
 var delayShow = 250;
 var delayBtwShow = 1000;
 var delayWrong = 2000;
-var delayWin =2400;
+var delayWin = 2400;
+var delayReset = 2000;
 var waitTime = 4000;
 var centerX = 250;
 var centerY = 250;
@@ -30,7 +31,11 @@ $(document).ready(function(){
 			if (!run) {
 				//console.log("clicked");
 				main();
-			}
+			}// else {
+			//	mainArr = [];
+			//	counter = 0;
+				//main();
+			//}
 		}
 	});
 	
@@ -160,6 +165,21 @@ function displayWin(){
 	},2400);
 }
 
+function displayReset(){
+	$("#display-digit").text("Re");
+	setTimeout(function(){
+		$("#display-digit").text("es");
+	},600);
+	setTimeout(function(){
+		$("#display-digit").text("se");
+	},1200);
+	setTimeout(function(){
+		$("#display-digit").text("et");
+	},1800);
+	setTimeout(function(){
+		updateDisplay(pad(counter,2));
+	},2400);
+}
 
 function failCase(){
 	if (!stricy){
@@ -169,6 +189,12 @@ function failCase(){
 		mainArr = [];
 		main();
 	}
+}
+
+function resetCase(){
+	counter = 0;
+	mainArr = [];
+	main();
 }
 
 function winCase(){
@@ -217,11 +243,13 @@ function body() {
 				fail = true;
 				displayWrong();
 				setTimeout(failCase, delayWrong);				
+				$("#on-button").off();
 				return false;
 			}, waitTime);
 			$(".arc").click(function(){
 				clearTimeout(myVar);
 				$(".arc").off();
+				$("#on-button").off();
 				//console.log($(this).attr('id')[3]);
 				var num = Number($(this).attr('id')[3]) + 1;
 				audioElement.setAttribute('src', "https://s3.amazonaws.com/freecodecamp/simonSound" + num + ".mp3");
@@ -256,7 +284,13 @@ function body() {
 				}
 				//return true;
 			});
-					
+			$("#on-button").click(function(){
+				clearTimeout(myVar);
+				$(".arc").off();
+				displayReset();
+				setTimeout(resetCase, delayReset);				
+				return false;
+			});
 		}
 
     }
