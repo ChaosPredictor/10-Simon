@@ -233,11 +233,21 @@ function body() {
 				return;
 			}
 			--index;
-			setTimeout(next, delayBtwShow);
+			var myTim
+			myTim = setTimeout(function(){	
+				$("#on-button").off();
+				next();
+			}, delayBtwShow);
+			$("#on-button").click(function(){
+				clearTimeout(myTim);
+				displayReset();
+				setTimeout(resetCase, delayReset);				
+				return false;
+			});
 		} else {
 			var arc = mainArr[0-index];
-			var myVar;
-			myVar = setTimeout(function(){
+			var myTim;
+			myTim = setTimeout(function(){
 				console.log("false timer");
 				$(".arc").off();
 				fail = true;
@@ -247,7 +257,7 @@ function body() {
 				return false;
 			}, waitTime);
 			$(".arc").click(function(){
-				clearTimeout(myVar);
+				clearTimeout(myTim);
 				$(".arc").off();
 				$("#on-button").off();
 				//console.log($(this).attr('id')[3]);
@@ -285,7 +295,7 @@ function body() {
 				//return true;
 			});
 			$("#on-button").click(function(){
-				clearTimeout(myVar);
+				clearTimeout(myTim);
 				$(".arc").off();
 				displayReset();
 				setTimeout(resetCase, delayReset);				
